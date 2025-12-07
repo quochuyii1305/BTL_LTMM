@@ -173,5 +173,4 @@ MIT License - Tự do sử dụng cho mục đích học tập và nghiên cứu
 - [ ] Thêm unit tests
 - [ ] Tối ưu hiệu suất
 
-### Changelog
-- **v1.0.0** (2024): Phiên bản đầu tiên với chức năng cơ bản
+
