@@ -2,7 +2,7 @@
 
 Chương trình mô phỏng thuật toán chữ ký số DSA.
 
-## 🚀 Cách chạy chương trình
+##  Cách chạy chương trình
 
 ### Windows
 
@@ -40,7 +40,7 @@ make
 ./dsa_program
 ```
 
-## 📊 Test Vector 
+## Test Vector 
 
 Kết quả chạy chương trình với p bắt đầu từ 2^511:
 
