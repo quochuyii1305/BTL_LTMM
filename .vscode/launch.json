@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/CODE/BTL_LTMM",
-      "program": "d:/CODE/BTL_LTMM/build/Debug/outDebug",
+      "cwd": "d:/LTMM20251",
+      "program": "d:/LTMM20251/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
