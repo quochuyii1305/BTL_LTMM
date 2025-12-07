@@ -2,7 +2,7 @@
 
 Chương trình mô phỏng thuật toán chữ ký số DSA.
 
-## 🚀 Cách sử dụng
+## 🚀 Cách chạy chương trình
 
 ### Windows
 
@@ -31,30 +31,18 @@ gcc main.c prime.c generator.c dsa.c -o dsa_program.exe -lgmp
 
 ### Linux/macOS
 
-**Sử dụng Makefile:**
-
 ```bash
-# Build
-make
-
-# Chạy
+# Build và chạy
 make run
 
-# Xóa file build
-make clean
-
-# Build lại từ đầu
-make rebuild
-```
-
-**Compile thủ công:**
-
-```bash
-gcc main.c prime.c generator.c dsa.c -o dsa_program -lgmp
+# Hoặc
+make
 ./dsa_program
 ```
 
-## 📊 Output mẫu
+## 📊 Test Vector (p = 2^511)
+
+Kết quả chạy chương trình với p bắt đầu từ 2^511:
 
 ```
 Simulation of Digital Signature Algorithm
@@ -69,12 +57,15 @@ G is: 60150474308745993813942160114768597726066754421846804141880380795403351201
 
 Secret information:
 X (private) is: 2817030638416099911421757128812080249686178406136441769986574797139792355352939369610428542965311515413233542242392996736304229459417523344014413358
+
 Y (public) is: 3004262697191857488544130731102282086358488836893110955392622610222229546087670703357236437544354661070894091644826251728698282311862453090524290751907408
+
 H (mdhash) is: 3790618417092072329107766944971232787767480492405333836722068936774687252287317364427455702352886100145862638882709992329493177894401982003937944068045895
 
 Generating digital signature:
 DSA Signature Generated:
 R is: 236996058167665009429628738106852837148506960921901302517472143250378119285012729000038462252536893478975041466532356736177291609389461523953561314
+
 S is: 1017961334321594815661551610049652575835444508488105905015143672814765948086861422878977441005766535181359023500894395147443779341971064852422022536
 
 Verifying digital signature:
@@ -83,94 +74,42 @@ DSA Signature Verification Result: Valid
 Success: Digital signature is verified!
 236996058167665009429628738106852837148506960921901302517472143250378119285012729000038462252536893478975041466532356736177291609389461523953561314
 ```
+Kết quả của chương trình với p bắt đầu từ 2^1000:
 
-## 📚 Chi tiết kỹ thuật
+```
+Simulation of Digital Signature Algorithm
 
-### Các module chính
+Global public key components are:
 
-#### 1. **prime.c/h** - Xử lý số nguyên tố
-- `isProbablePrime()`: Kiểm tra số nguyên tố bằng Miller-Rabin
-- `getNextPrime()`: Tìm số nguyên tố tiếp theo
-- `findQ()`: Tìm ước số nguyên tố lớn nhất
+P is: 6703903964971298549787012499102923063739682910296196688861780721860882015036773488400937149083451713845015929093243025426876941405973284973216824503042159
 
-#### 2. **generator.c/h** - Sinh generator
-- `getGen()`: Sinh generator g cho DSA
+Q is: 2986076933994148269835385919048238066318085404759171355727648743353559431103560755510084456357598398009587265648506906928241789019762235105800049577
 
-#### 3. **dsa.c/h** - Thuật toán DSA
-- `DSA_sign()`: Ký số với khóa riêng
-- `DSA_verify()`: Xác thực chữ ký với khóa công khai
+G is: 2038642624047728403280117991641057254861964243751314388540478318009424298847824860579629227216752032119860456410416600392909274673891088812274246310483177
 
-#### 4. **main.c** - Chương trình chính
-- Sinh các tham số DSA
-- Demo ký và xác thực
+Secret information:
+X (private) is: 1996068614342404335451864674489004648801856564746338342591261392843050698068905582499581480749604201217155786665300015283934573177525094528251883244
+Y (public) is: 992989250307270644789127415653756985851834835218803136897535722198852047109068791900964270485661480477888057981714434844209524158101980175760956379190414
+H (mdhash) is: 9081734630194554262504016507595857659884356718194194191776278055461662226472654170729356511763938359100012165958926506192826049687529735253719169432613610
 
-### Quy trình DSA
+Generating digital signature:
+DSA Signature Generated:
+R is: 1885831988497383175759521371924229019242273558974928996562148348871503435874639009716206916146302750967383120334595376162097277865569229640759302003
+S is: 183298815798490779181698763181716228144891596462103374798740751198903704744933879233888073637403291213133193441381148230541871771132519974846878495
 
-**1. Sinh khóa:**
-- Chọn p (số nguyên tố lớn, 512 bit)
-- Tìm q (ước nguyên tố của p-1)
-- Sinh generator g
-- Chọn khóa riêng x ngẫu nhiên
-- Tính khóa công khai y = g^x mod p
+Verifying digital signature:
+DSA Signature Verification Result: Valid
 
-**2. Ký số:**
-- Chọn k ngẫu nhiên
-- Tính r = (g^k mod p) mod q
-- Tính s = k^(-1) * (H + x*r) mod q
-- Chữ ký: (r, s)
+Success: Digital signature is verified!
+1885831988497383175759521371924229019242273558974928996562148348871503435874639009716206916146302750967383120334595376162097277865569229640759302003
+```
 
-**3. Xác thực:**
-- Tính w = s^(-1) mod q
-- Tính u1 = H*w mod q
-- Tính u2 = r*w mod q
-- Tính v = (g^u1 * y^u2 mod p) mod q
-- Xác thực: v == r
-
-## 🔐 Bảo mật
-
-**Lưu ý:**
-- Đây là chương trình mô phỏng cho mục đích học tập
-- Không sử dụng trong môi trường production
-- Các số ngẫu nhiên cần nguồn entropy mạnh hơn
-- Khóa 512-bit chỉ dùng cho demo (thực tế cần >= 2048-bit)
-
-## 🐛 Xử lý lỗi
-
-**Lỗi thường gặp:**
-
-1. **"gmp.h: No such file or directory"**
-   - Chưa cài thư viện GMP
-   - Giải quyết: Cài GMP theo hướng dẫn phần Cài đặt
-
-2. **"undefined reference to `__gmpz_init`"**
-   - Chưa link thư viện GMP
-   - Giải quyết: Thêm flag `-lgmp` khi compile
-
-3. **"gcc: command not found"**
-   - Chưa cài GCC
-   - Giải quyết: Cài MinGW (Windows) hoặc build-essential (Linux)
-
-## 👨‍💻 Tác giả
-
-Dự án LTMM20251 - Lập trình Mật mã học
-
-## 📄 License
-
-MIT License - Tự do sử dụng cho mục đích học tập và nghiên cứu
-
-## 🔗 Tham khảo
-
-- [FIPS 186-4: Digital Signature Standard (DSS)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf)
-- [GMP Documentation](https://gmplib.org/manual/)
-- [DSA Algorithm Explanation](https://en.wikipedia.org/wiki/Digital_Signature_Algorithm)
-
-## 📝 Ghi chú phát triển
-
-### TODO
-- [ ] Tăng kích thước khóa lên 2048-bit
-- [ ] Thêm đọc/ghi file cho khóa
-- [ ] Implement SHA-256 cho hashing
-- [ ] Thêm unit tests
-- [ ] Tối ưu hiệu suất
-
-
+**Giải thích:**
+- **P**: Số nguyên tố 512-bit được sinh từ 2^511
+- **Q**: Ước số nguyên tố lớn nhất của (P-1)
+- **G**: Generator của nhóm
+- **X**: Khóa riêng (private key)
+- **Y**: Khóa công khai (public key) = G^X mod P
+- **H**: Hash của message (giả lập)
+- **R, S**: Chữ ký số (signature)
+- **Verification**: So sánh V với R để xác thực
