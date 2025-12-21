@@ -105,7 +105,7 @@ Success: Digital signature is verified!
 ```
 
 **Giải thích:**
-- **P**: Số nguyên tố 512-bit được sinh từ 2^511
+- **P**: Số nguyên tố L-bit được sinh từ 2^(L-1)
 - **Q**: Ước số nguyên tố lớn nhất của (P-1)
 - **G**: Generator của nhóm
 - **X**: Khóa riêng (private key)
