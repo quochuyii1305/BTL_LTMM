@@ -19,7 +19,15 @@ int main() {
     mpz_inits(p, q, g, x, y, r, s, hashVal, temp1, start_p, NULL);
     
     // Sinh các tham số công khai
-    mpz_ui_pow_ui(start_p, 2, 511);
+    unsigned int p_bits;
+
+    printf("Nhap do dai cua so nguyen to p (vi du: 512 hoac 1024): ");
+    scanf("%u", &p_bits);
+    // start_p = 2^(p_bits - 1)
+    mpz_ui_pow_ui(start_p, 2, p_bits - 1);
+
+
+
     char *str_p = mpz_get_str(NULL, 10, start_p);
     getNextPrime(p, str_p);
     free(str_p);
